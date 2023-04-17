@@ -1,0 +1,82 @@
+  <div>
+    <table
+      class="utilization-table"
+      mat-table
+      [dataSource]="dataSource"
+      #outersort="matSort"
+      matSort
+    >
+      <ng-container matColumnDef="user.name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          User Name
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          matTooltipPosition="above"
+        >
+          {{ element.name }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        matRipple
+        class="element-row"
+        [cdkDetailRow]="row"
+        [cdkDetailRowTpl]="tpl"
+        [openAction]="'edit'"
+        (toggleChange)="onToggleRow($event)"
+      >
+      </mat-row>
+    </table>
+  </div>
+</div>
+
+<ng-template #tpl let-element>
+  <div class="pol-edit-wrapper">
+    <div class="pol-editcontainer">
+      <div class="field-element">
+        <mat-label>Capacity Team</mat-label>
+        <div class="label-box disable-field">
+          <div
+            matTooltip="{{ editFormData.user.userName }}"
+            matTooltipPosition="above"
+          >
+            {{ editFormData.user.userName }}
+          </div>
+        </div>
+      </div>
+      <div class="field-element">
+        <mat-label>User Name</mat-label>
+        <div class="label-box disable-field">
+          <div
+            matTooltip="{{ setTradeLaneTextForTooltip(element.tradeLanes) }}"
+            [innerHTML]="setTradeLaneTextForTooltip(element.tradeLanes)"
+            matTooltipPosition="above"
+          ></div>
+        </div>
+      </div>
+      <div class="field-element">
+        <mat-label>User Age</mat-label>
+        <div class="label-box disable-field">
+          <div
+            matTooltip="{{ editFormData.services.service_code }}"
+            matTooltipPosition="above"
+          >
+            {{ editFormData.services.service_code }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pol-edit-form-button">
+        <button
+        class="pol-btn-save"
+        (click)="saveEdit()"
+        >
+        Save
+    </button>
+    <button class="pol-btn-cancel" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+</ng-template>
